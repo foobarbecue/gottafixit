@@ -11,8 +11,15 @@ chrome.extension.sendMessage({}, function() {
 	}
 	}, 10);
 });
-chrome.storage.onChanged.addListener(function(changes) {
-		if (changes.hasOwnProperty('gfi_active')){
-			$('p').attr('contenteditable', changes.gfi_active.newValue);
+
+// initial application of gfi settings
+function init(){
+	console.log('doing init, innit?');
+	chrome.storage.sync.get('gfi_active',
+		function(items){
+			$('p').attr('contenteditable',items['gfi_active']);
 		}
-});
+)};
+
+// listen in case checkbox to activate editing in popup is toggled
+chrome.storage.onChanged.addListener(init);
