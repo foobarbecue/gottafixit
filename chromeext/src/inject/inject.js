@@ -7,16 +7,12 @@ chrome.extension.sendMessage({}, function() {
 		// This part of the script triggers when page is done loading
 		console.log("Hello. This message was sent from scripts/inject.js");
 		// ----------------------------------------------------------
-        
+        debugger;
 	}
 	}, 10);
 });
-chrome.storage.onChanged.addListener(function(changes){
-	debugger;
-	for (var key in changes){
-		var storageChange = changes[key];
-		if (key === 'gfi_active') {
-			$('p').attr('contenteditable', storageChange.newValue)
+chrome.storage.onChanged.addListener(function(changes) {
+		if (changes.hasOwnProperty('gfi_active')){
+			$('p').attr('contenteditable', changes.gfi_active.newValue);
 		}
-	}
 });
