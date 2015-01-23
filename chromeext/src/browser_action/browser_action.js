@@ -1,16 +1,17 @@
-console.log('loaded browser_action.js')
-$(function(){
-    console.log('test')
-    $('#toggle').click(
-        function(event) {
-            console.log('clickeeeed')
-            var gfi_active = this.checked;
-            chrome.storage.sync.set(
-                                    {'gfi_active': gfi_active},
-                                    function(){
-                                        console.log('State set to ' + gfi_active)
-                                    });
-                                    
+$(function () {
+    // Find out if we're active and set the checkbox to correct value ASAP
+    chrome.storage.sync.get('gfi_active',
+        function(items){
+            $('#toggle').prop('checked',items['gfi_active']);
         }
-    )   
+    );
+
+    // Add click handler for the toggle button to store state in chrome.storage
+    $('#toggle').click(
+        function () {
+            chrome.storage.sync.set(
+                {'gfi_active': this.checked}
+            )
+        }
+    )
 });

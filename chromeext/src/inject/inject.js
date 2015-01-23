@@ -1,4 +1,4 @@
-chrome.extension.sendMessage({}, function(response) {
+chrome.extension.sendMessage({}, function() {
 	var readyStateCheckInterval = setInterval(function() {
 	if (document.readyState === "complete") {
 		clearInterval(readyStateCheckInterval);
@@ -11,4 +11,12 @@ chrome.extension.sendMessage({}, function(response) {
 	}
 	}, 10);
 });
-$('p').attr('contenteditable','true')
+chrome.storage.onChanged.addListener(function(changes){
+	debugger;
+	for (var key in changes){
+		var storageChange = changes[key];
+		if (key === 'gfi_active') {
+			$('p').attr('contenteditable', storageChange.newValue)
+		}
+	}
+});
