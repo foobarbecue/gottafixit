@@ -30,8 +30,8 @@
         "http://*/*"
       ],
       "js": [
-        "js/jquery/jquery.min.js",
         "js/jsdiff.js",
+        "js/jquery/jquery.min.js",
         "src/inject/inject.js"
       ]
     }

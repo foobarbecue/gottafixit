@@ -19,7 +19,22 @@ function init(){
 		function(items){
 			$('p').attr('contenteditable',items['gfi_active']);
 		}
-)};
+	);
+	//	diff stuff
+	$('p').click(saveOriginal).blur(onEdit);
+}
 
 // listen in case checkbox to activate editing in popup is toggled
 chrome.storage.onChanged.addListener(init);
+
+function saveOriginal() {
+	if (!this.originalText) {
+		this.originalText = this.innerText;
+	}
+}
+
+function onEdit(){
+	$(this).html(diffString(this.originalText, this.innerText));
+}
+
+init();
