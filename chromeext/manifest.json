@@ -11,16 +11,9 @@
   },
   "default_locale": "en",
   "permissions" : ["storage"],
-  "background": {
-    "scripts": [
-      "js/jquery/jquery.min.js",
-      "src/bg/background.js"
-    ],
-    "persistent": true
-  },
   "browser_action": {
     "default_icon": "icons/icon19.png",
-    "default_title": "browser action demo",
+    "default_title": "gottafix.it",
     "default_popup": "src/browser_action/browser_action.html"
   },
   "content_scripts": [
@@ -30,7 +23,10 @@
       ],
       "js": [
         "js/jsdiff.js",
-        "js/jquery/jquery.min.js",
+        "js/jquery.min.js",
+        "js/bower_components/ddp.js/src/ddp.js",
+        "js/bower_components/q/q.js",
+        "js/bower_components/asteroid/dist/asteroid.chrome.js",
         "src/inject/inject.js"
       ]
     }
