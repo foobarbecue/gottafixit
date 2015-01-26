@@ -24,6 +24,7 @@
       "js": [
         "js/jsdiff.js",
         "js/jquery.min.js",
+        "js/get_selector.js",
         "js/bower_components/ddp.js/src/ddp.js",
         "js/bower_components/q/q.js",
         "js/bower_components/asteroid/dist/asteroid.chrome.js",
