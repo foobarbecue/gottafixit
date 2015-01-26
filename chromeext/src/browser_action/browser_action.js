@@ -1,17 +1,21 @@
 $(function () {
-    // Find out if we're active and set the checkbox to correct value ASAP
-    chrome.storage.sync.get('gfi_active',
+    // Find out if we're active and set the checkboxs to correct value ASAP
+    chrome.storage.sync.get(null,
         function(items){
-            $('#toggle').prop('checked',items['gfi_active']);
+            for (var key in items) {
+                if (items.hasOwnProperty(key)){
+                    $('#' + key).prop('checked', items[key]);
+                }
+            }
         }
     );
 
-    // Add click handler for the toggle button to store state in chrome.storage
-    $('#toggle').click(
+    // Add handlers for the toggle button to store state in chrome.storage
+    $('input').click(
         function () {
-            chrome.storage.sync.set(
-                {'gfi_active': this.checked}
-            )
+            var toStore = {};
+            toStore[this.id] = this.checked;
+            chrome.storage.sync.set(toStore);
         }
     )
 });

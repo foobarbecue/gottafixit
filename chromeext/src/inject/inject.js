@@ -1,16 +1,38 @@
 // initial application of gfi settings
-function init(){
-	chrome.storage.sync.get('gfi_active',
-		function(items){
-			$('p').attr('contenteditable',items['gfi_active']);
-		}
-	);
-	//	diff stuff
-	$('p').click(saveOriginal).blur(onFix);
-}
+function init(chromeStorageData){
+	// Connect to the server using Use the Asteroid library ( https://github.com/mondora/asteroid )
+	var ddp_connection = new Asteroid("localhost:3000");
+	ddp_connection.subscribe("fixesForCurrentPage");
+	var fixesCollection = ddp_connection.getCollection("fixes");
 
-// listen in case checkbox to activate editing in popup is toggled
-chrome.storage.onChanged.addListener(init);
+	// Set up fixing
+
+	if (chromeStorageData['fixing_active']) {
+		$('p').attr('contenteditable', true)
+			.click(saveOriginal)
+			.blur(function(){
+					onFix(fixesCollection, this)
+				});
+	}
+
+	//if (chromeStorageData['show_current_user_fixes_active']) {
+	//	var fixesForPageQuery = fixesCollection.reactiveQuery({url:window.location.href, user: currentUser});
+	//	showFixes(fixesForPageQuery);
+	//}
+
+	// Set up display of fixes from database
+	if (chromeStorageData['show_user_fixes_active']) {
+		var fixesForPageQuery = fixesCollection.reactiveQuery({url:window.location.href});
+		showFixes(fixesForPageQuery);
+	}
+
+	// TODO after set up accounts
+	//if (chromeStorageData['show_current_user_fixes_active']) {
+	//	var fixesForPageQuery = fixesCollection.reactiveQuery({url:window.location.href, user: currentUser});
+	//	showFixes(fixesForPageQuery);
+	//}
+
+}
 
 function saveOriginal() {
 	if (!this.originalText) {
@@ -19,28 +41,40 @@ function saveOriginal() {
 	}
 }
 
-function onFix() {
+function onFix(fixesCollection, that) {
 	// if the user actually changed something
-	if (this.originalHTML !== this.innerHTML) {
+	if (that.originalHTML !== that.innerHTML) {
 		// if
-		fixes.insert({
+		fixesCollection.insert({
 			timestamp: new Date(),
-			oldHTML: this.originalHTML,
-			newHTML: this.innerHTML,
+			oldHTML: that.originalHTML,
+			newHTML: that.innerHTML,
 			url: window.location.href,
-			nodeSelector: $(this).getSelector()
+			nodeSelector: $(that).getSelector()
 		});
 		// Update the text on the page so the user knows the change has been successful.
 		// We are also doing this server-side and really we should use that result instead.
 		// Will implement that once we have edits loading from the db to pages.
-		$(this).html(diffString(this.innerText, this.originalText));
+		//$(this).html(diffString(this.innerText, this.originalText));
 	}
 }
 
-// Use the Asteroid library ( https://github.com/mondora/asteroid ) to connect to the server
-var ddp_connection = new Asteroid("localhost:3000");
+function showFixes(fixesForPageQuery){
+	for (var fix in fixesForPageQuery.result){
+		if (fixesForPageQuery.result.hasOwnProperty(fix)) {
+			$(fix.nodeSelector).html(fix.diffedHTML);
+		}
+	}
+}
 
-ddp_connection.subscribe("fixesForCurrentPage");
-var fixes = ddp_connection.getCollection("fixes");
+chrome.storage.sync.get(
+	// should select keys like this but it doesn't seem to work
+	//['fixing_active', 'show_current_user_fixes_active', 'show_all_user_fixes_active'],
+	null,
+	function(chromeStorageData){
+		init(chromeStorageData);
+	});
 
-init();
+// listen in case checkbox to activate editing in popup is toggled
+// TODO arguments passed to init here are probably wrong
+//chrome.storage.sync.onChanged.addListener(init);

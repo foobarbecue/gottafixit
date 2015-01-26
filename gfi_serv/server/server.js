@@ -15,3 +15,5 @@ Fixes.find().observeChanges({
         }
     }
 });
+
+Fixes.allow()
