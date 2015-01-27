@@ -1,0 +1,1 @@
+Fixes = new Mongo.Collection("fixes");
