@@ -16,4 +16,11 @@ Fixes.find().observeChanges({
     }
 });
 
-Fixes.allow()
+//Fixes.allow({
+//    insert: function () {
+//        return true;
+//    },
+//    fetch: function(){
+//        return true;
+//    }
+//});

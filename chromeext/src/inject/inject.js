@@ -22,7 +22,11 @@ function init(chromeStorageData){
 
 	// Set up display of fixes from database
 	if (chromeStorageData['show_user_fixes_active']) {
-		var fixesForPageQuery = fixesCollection.reactiveQuery({url:window.location.href});
+		//Selector doesn't seem to work, try filter function instead.
+		//var fixesForPageQuery = fixesCollection.reactiveQuery({url:window.location.href});
+		var url=window.location.href;
+		var fixesForPageQuery = fixesCollection.reactiveQuery({});
+		console.log(fixesForPageQuery.result);
 		showFixes(fixesForPageQuery);
 	}
 
