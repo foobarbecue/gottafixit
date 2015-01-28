@@ -1,5 +1,5 @@
 $(function () {
-    // Find out if we're active and set the checkboxs to correct value ASAP
+    // Find out if we're active and set the checkboxes to correct value ASAP
     chrome.storage.sync.get(null,
         function(items){
             for (var key in items) {

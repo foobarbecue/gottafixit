@@ -1,18 +1,43 @@
+var fixesCollection;
+var fixesForPageQuery;
 // initial application of gfi settings
-function init(chromeStorageData){
+function init() {
 	// Connect to the server using Use the Asteroid library ( https://github.com/mondora/asteroid )
 	var ddp_connection = new Asteroid("gottafix.it");
 	ddp_connection.subscribe("fixesForCurrentPage");
-	var fixesCollection = ddp_connection.getCollection("fixes");
+	fixesCollection = ddp_connection.getCollection("fixes");
+	fixesForPageQuery = fixesCollection.reactiveQuery({url:window.location.href});
+	// We need this because chrome.storage.onChanged doesn't emit on first load.
+	chrome.storage.sync.get(
+		// should select keys like this but it doesn't seem to work
+		//['fixing_active', 'show_current_user_fixes_active', 'show_all_user_fixes_active'],
+		null,
+		function(chromeStorageData){
+			setup(chromeStorageData);
+		});
 
-	// Set up fixing
+	chrome.storage.onChanged.addListener(
+			function(chromeStorageData){
+				setup(storageChangeToStorageObj(chromeStorageData));
+			})
+}
 
-	if (chromeStorageData['fixing_active']) {
-		$('p').attr('contenteditable', true)
+function setup(chromeStorageData){
+	// Apply options from checkboxes etc in browser popup
+	if (chromeStorageData['fixing_active'] == true) {
+		$('p').toggleClass('gfi_modified')
+			.attr('contenteditable', true)
 			.click(saveOriginal)
 			.blur(function(){
 					onFix(fixesCollection, this)
 				});
+	} else if (chromeStorageData['fixing_active'] == false) {
+		// TODO if any p were originally contenteditable=true before gfi got involved, then they've now been damaged.
+		// Don't do that, somehow.
+		$('p.gfi_modified')
+			.attr('contenteditable', false)
+			.off("click", "blur")
+			.toggleClass('gfi_modified');
 	}
 
 	//if (chromeStorageData['show_current_user_fixes_active']) {
@@ -21,12 +46,14 @@ function init(chromeStorageData){
 	//}
 
 	// Set up display of fixes from database
-	if (chromeStorageData['show_user_fixes_active']) {
-		//Selector doesn't seem to work, try filter function instead.
-		var fixesForPageQuery = fixesCollection.reactiveQuery({url:window.location.href});
+	if (chromeStorageData['show_all_fixes_active'] == true) {
+		showFixes(fixesForPageQuery.result);
 		fixesForPageQuery.on("change", function () {
-			console.log(fixesForPageQuery.result);
 			showFixes(fixesForPageQuery.result);
+		});
+	} else if (chromeStorageData['show_all_fixes_active'] == false) {
+		hideFixes(fixesForPageQuery.result);
+		fixesForPageQuery.on("change", function () {
 		});
 	}
 
@@ -55,11 +82,8 @@ function onFix(fixesCollection, that) {
 			newHTML: that.innerHTML,
 			url: window.location.href,
 			nodeSelector: $(that).getSelector()
+			// TODO  ip address
 		});
-		// Update the text on the page so the user knows the change has been successful.
-		// We are also doing this server-side and really we should use that result instead.
-		// Will implement that once we have edits loading from the db to pages.
-		//$(this).html(diffString(this.innerText, this.originalText));
 	}
 }
 
@@ -69,14 +93,22 @@ function showFixes(fixesForPageResult){
 	});
 }
 
-chrome.storage.sync.get(
-	// should select keys like this but it doesn't seem to work
-	//['fixing_active', 'show_current_user_fixes_active', 'show_all_user_fixes_active'],
-	null,
-	function(chromeStorageData){
-		init(chromeStorageData);
+function hideFixes(fixesForPageResult){
+	$.each(fixesForPageResult, function(index, fix){
+		$(fix.nodeSelector).html(fix.oldHTML);
 	});
+}
 
-// listen in case checkbox to activate editing in popup is toggled
-// TODO arguments passed to init here are probably wrong
-//chrome.storage.sync.onChanged.addListener(init);
+function storageChangeToStorageObj(storageChangeObj){
+	// This is an adapter that takes an object in the format passed to the callback of chrome.storage.onChanged and
+	// converts it to the format passed to the callback of chrome.storage.sync.get , so that we can call our setup()
+	// function both on initial page load and later on if the user clicks checkboxes in the browser popup. I wish it was
+	// not needed.
+	var storageObj = {};
+	for (var change in storageChangeObj) if (storageChangeObj.hasOwnProperty(change)) {
+		storageObj[change] = storageChangeObj[change].newValue
+	}
+	return storageObj;
+}
+
+init();
