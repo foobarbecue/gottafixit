@@ -1,7 +1,7 @@
 // initial application of gfi settings
 function init(chromeStorageData){
 	// Connect to the server using Use the Asteroid library ( https://github.com/mondora/asteroid )
-	var ddp_connection = new Asteroid("localhost:3000");
+	var ddp_connection = new Asteroid("gottafix.it");
 	ddp_connection.subscribe("fixesForCurrentPage");
 	var fixesCollection = ddp_connection.getCollection("fixes");
 
@@ -23,11 +23,11 @@ function init(chromeStorageData){
 	// Set up display of fixes from database
 	if (chromeStorageData['show_user_fixes_active']) {
 		//Selector doesn't seem to work, try filter function instead.
-		//var fixesForPageQuery = fixesCollection.reactiveQuery({url:window.location.href});
-		var url=window.location.href;
-		var fixesForPageQuery = fixesCollection.reactiveQuery({});
-		console.log(fixesForPageQuery.result);
-		showFixes(fixesForPageQuery);
+		var fixesForPageQuery = fixesCollection.reactiveQuery({url:window.location.href});
+		fixesForPageQuery.on("change", function () {
+			console.log(fixesForPageQuery.result);
+			showFixes(fixesForPageQuery.result);
+		});
 	}
 
 	// TODO after set up accounts
@@ -63,12 +63,10 @@ function onFix(fixesCollection, that) {
 	}
 }
 
-function showFixes(fixesForPageQuery){
-	for (var fix in fixesForPageQuery.result){
-		if (fixesForPageQuery.result.hasOwnProperty(fix)) {
-			$(fix.nodeSelector).html(fix.diffedHTML);
-		}
-	}
+function showFixes(fixesForPageResult){
+	$.each(fixesForPageResult, function(index, fix){
+		$(fix.nodeSelector).html(fix.diffedHTML);
+	});
 }
 
 chrome.storage.sync.get(
