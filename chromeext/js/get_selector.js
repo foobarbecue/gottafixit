@@ -31,7 +31,7 @@ $.fn.getSelector = function() {
         selector = el.tagName;
     } else {
         // Default to saying "nth child"
-        selector = ':nth-child(' + ($(this).index() + 1)+')';
+        selector = ':nth-child(' + ($(this).index() + 1) + ')';
         needParent = true;
     }
 
@@ -40,10 +40,15 @@ $.fn.getSelector = function() {
         for (ancestor$ = parent$.parent();
              ancestor$.length == 1 && ancestor$.find(selector).length == 1;
              parent$ = ancestor$, ancestor$ = ancestor$.parent())
-        if (ancestor$.length == 0) {
-            return selector;
-        }
+            if (ancestor$.length == 0) {
+                return selector;
+            }
     }
 
-    return parent$.getSelector() + ' > ' + selector;
+    var parentSelector = parent$.getSelector();
+    if (parentSelector) {
+        return parentSelector + ' > ' + selector;
+    } else {
+        return selector;
+    }
 };
