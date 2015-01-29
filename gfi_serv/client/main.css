@@ -1,4 +1,53 @@
-div.fix{
-    border: thin black dotted;
+/* CSS declarations go here */
+#login-buttons{
+    position: fixed;
+    right: 0;
+    margin: 20px;
+}
 
+/* "fix" here is this app's term for an edit made on some other page, displayed here. */
+
+.fix{
+    flex-direction: column;
+    display: flex;
+}
+
+/* Add a margin if our window is wide */
+@media (min-width: 1000px){
+    .fix {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}
+
+.fix_header, .fix_body{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.fix_header{
+    border-bottom: double black;
+}
+
+.contents{
+    margin: 1em;
+    flex: 1;
+}
+
+.voting{
+    border-right: thin black solid;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-right: 1em;
+    padding-left: 1em;
+}
+
+ins{
+    color: red;
+}
+
+del{
+    color: blue;
 }

@@ -4,7 +4,7 @@ var ddpConnection;
 // initial application of gfi settings
 function init() {
 	// Connect to the server using Use the Asteroid library ( https://github.com/mondora/asteroid )
-	ddpConnection = new Asteroid("gottafix.it");
+	ddpConnection = new Asteroid("localhost:3000");
 	ddpConnection.subscribe("fixesForCurrentPage");
 	fixesCollection = ddpConnection.getCollection("fixes");
 	fixesForPageQuery = fixesCollection.reactiveQuery({url:window.location.href});

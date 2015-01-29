@@ -1,0 +1,44 @@
+<head>
+  <title>Gotta Fix It: proofread the net</title>
+</head>
+
+<body>
+  {{> loginButtons align="right"}}
+  <h1>The internet, corrected.</h1>
+  {{> list_of_fixes}}
+</body>
+
+<template name="list_of_fixes">
+    <div class=".fixes">
+      {{#each fixes}}
+        <div class="fix">
+            <div class="fix_header">
+                <div class="author">
+                    {{#if author}}{{author}}{{else}}Anonymous user{{/if}}
+                </div>
+                <div class="url">
+                    <a href='{{url}}'>{{url}}</a>
+                </div>
+                <div class="timestamp">
+                    {{timestamp}}
+                </div>
+            </div>
+
+            <!-- Wish we didn't have to have this purely style element-->
+            <div class="fix_body">
+
+                <div class="voting">
+                    <div><a>✔: {{aye}}</a></div>
+                    <div><a>X: {{nea}}</a></div>
+                </div>
+
+                <div class="contents">
+                    {{{diffedHTML}}}
+                </div>
+
+            </div>
+
+        </div>
+      {{/each}}
+    </div>
+</template>
