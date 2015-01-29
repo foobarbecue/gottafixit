@@ -10,3 +10,5 @@ autopublish
 insecure
 accounts-facebook
 accounts-google
+accounts-ui
+accounts-github

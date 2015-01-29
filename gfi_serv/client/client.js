@@ -5,3 +5,7 @@ Template.list_of_fixes.helpers({
        return Fixes.find();
    }
 });
+
+Accounts.ui.config({
+    passwordSignupFields: 'USERNAME_AND_OPTIONAL_EMAIL'
+});
