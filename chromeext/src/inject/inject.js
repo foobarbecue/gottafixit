@@ -1,11 +1,12 @@
 var fixesCollection;
 var fixesForPageQuery;
+var ddpConnection;
 // initial application of gfi settings
 function init() {
 	// Connect to the server using Use the Asteroid library ( https://github.com/mondora/asteroid )
-	var ddp_connection = new Asteroid("gottafix.it");
-	ddp_connection.subscribe("fixesForCurrentPage");
-	fixesCollection = ddp_connection.getCollection("fixes");
+	ddpConnection = new Asteroid("gottafix.it");
+	ddpConnection.subscribe("fixesForCurrentPage");
+	fixesCollection = ddpConnection.getCollection("fixes");
 	fixesForPageQuery = fixesCollection.reactiveQuery({url:window.location.href});
 	// We need this because chrome.storage.onChanged doesn't emit on first load.
 	chrome.storage.sync.get(

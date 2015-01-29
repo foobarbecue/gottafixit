@@ -8,3 +8,5 @@ meteor-platform
 long:htmldiff
 autopublish
 insecure
+accounts-facebook
+accounts-google
