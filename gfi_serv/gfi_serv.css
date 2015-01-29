@@ -1,1 +1,6 @@
 /* CSS declarations go here */
+#login-buttons{
+    position: fixed;
+    right: 0;
+    margin: 20px;
+}
