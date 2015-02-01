@@ -1,3 +1,5 @@
+var bgContext = chrome.extension.getBackgroundPage();
+
 $(function () {
     // Find out if we're active and set the checkboxes to correct value ASAP
     chrome.storage.sync.get(null,
@@ -17,13 +19,26 @@ $(function () {
             toStore[this.id] = this.checked;
             chrome.storage.sync.set(toStore);
         }
-    )
+    );
 
 
     $('#login').click(
         function(){
-            console.log('browser action script sent message')
-            chrome.runtime.sendMessage("login")
+            console.log('browser action script sent message');
+            chrome.runtime.sendMessage('login');
         }
-    )
+    );
+
+    $('#logout').click(
+        function(){
+            console.log('attempting logout');
+            chrome.runtime.sendMessage('logout');
+        }
+    );
+
+    if (bgContext.ddpConnection.userId){
+        $('#login').hide();
+    } else {
+        $('#logout').hide();
+    }
 });

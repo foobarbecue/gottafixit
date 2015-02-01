@@ -1,6 +1,6 @@
 var fixesCollection;
 var fixesForPageQuery;
-var ddpConnection;
+//var ddpConnection;
 // initial application of gfi settings
 function init() {
 	// Connect to the server using Use the Asteroid library ( https://github.com/mondora/asteroid )
@@ -20,7 +20,10 @@ function init() {
 	chrome.storage.onChanged.addListener(
 			function(chromeStorageData){
 				setup(storageChangeToStorageObj(chromeStorageData));
-			})
+			});
+
+	ddpConnection.on("login",function(){console.log('logged in')});
+
 }
 
 function setup(chromeStorageData){
@@ -73,17 +76,16 @@ function saveOriginal() {
 	}
 }
 
-function onFix(fixesCollection, that) {
+function onFix(that) {
+
 	// if the user actually changed something
 	if (that.originalHTML !== that.innerHTML) {
-		// if
-		fixesCollection.insert({
+		ddpConnection.call('submit_fix',{
 			timestamp: new Date(),
 			oldHTML: that.originalHTML,
 			newHTML: that.innerHTML,
 			url: window.location.href,
 			nodeSelector: $(that).getSelector()
-			// TODO  ip address
 		});
 	}
 }
