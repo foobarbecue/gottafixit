@@ -33,7 +33,7 @@ function setup(chromeStorageData){
 			.attr('contenteditable', true)
 			.click(saveOriginal)
 			.blur(function(){
-					onFix(fixesCollection, this)
+					onFix(this)
 				});
 	} else if (chromeStorageData['fixing_active'] == false) {
 		// TODO if any p were originally contenteditable=true before gfi got involved, then they've now been damaged.
