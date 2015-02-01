@@ -16,6 +16,15 @@
     "default_title": "gottafix.it",
     "default_popup": "src/browser_action/browser_action.html"
   },
+  "background":{
+    "scripts":[
+      "js/bower_components/ddp.js/src/ddp.js",
+      "js/bower_components/q/q.js",
+      "js/bower_components/asteroid/dist/asteroid.chrome.js",
+      "js/bower_components/asteroid/dist/plugins/facebook-login.js",
+      "src/background.js"
+    ]
+  },
   "content_scripts": [
     {
       "matches": [
@@ -28,6 +37,7 @@
         "js/bower_components/ddp.js/src/ddp.js",
         "js/bower_components/q/q.js",
         "js/bower_components/asteroid/dist/asteroid.chrome.js",
+        "js/bower_components/asteroid/dist/plugins/facebook-login.js",
         "src/inject/inject.js"
       ]
     }

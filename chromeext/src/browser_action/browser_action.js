@@ -11,11 +11,19 @@ $(function () {
     );
 
     // Add handlers for the toggle button to store state in chrome.storage
-    $('input').click(
+    $('input[type=checkbox]').click(
         function () {
             var toStore = {};
             toStore[this.id] = this.checked;
             chrome.storage.sync.set(toStore);
+        }
+    )
+
+
+    $('#login').click(
+        function(){
+            console.log('browser action script sent message')
+            chrome.runtime.sendMessage("login")
         }
     )
 });
