@@ -8,18 +8,9 @@ Meteor.publish('fixesForCurrentPage', function(){
 
 Meteor.methods({
         submit_fix: function(data){
-            data['author'] = this.userId;
-            data['diffedHTML'] = htmldiff(data.oldHTML, data.newHTML)
+            data['author'] = Meteor.users.findOne(this.userId);
+            data['diffedHTML'] = htmldiff(data.oldHTML, data.newHTML);
             Fixes.insert(data);
         }
     }
 )
-
-//Fixes.allow({
-//    insert: function () {
-//        return true;
-//    },
-//    fetch: function(){
-//        return true;
-//    }
-//});
