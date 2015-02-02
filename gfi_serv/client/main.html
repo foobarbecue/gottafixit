@@ -6,6 +6,10 @@
   {{> loginButtons align="right"}}
   <h1>The internet, corrected.</h1>
   {{> list_of_fixes}}
+  <div id="extDwnld" >
+      Proofread the net for fun and glory.
+      Install the <a href="https://chrome.google.com/webstore/detail/gottafixit/apmhajgnggibnojcfieokijpnhflifnd">Google Chrome extension</a> to get started.
+  </div>
 </body>
 
 <template name="list_of_fixes">
@@ -28,8 +32,8 @@
             <div class="fix_body">
 
                 <div class="voting">
-                    <div><a>✔: {{aye}}</a></div>
-                    <div><a>X: {{nea}}</a></div>
+                    <div id="voteAye" class={{voted}}>✔{{aye}}:</div>
+                    <div id="voteNay" class={{voted}}>X{{nay}}:</div>
                 </div>
 
                 <div class="contents">

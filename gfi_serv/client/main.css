@@ -44,6 +44,20 @@
     padding-left: 1em;
 }
 
+#voteAye:hover, #voteAye.voted{
+    color: green;
+}
+
+#voteNay:hover, #voteNay.voted{
+    color: red;
+}
+
+#extDwnld{
+    position: absolute;
+    right: 1em;
+    top: 1em;
+}
+
 ins{
     color: red;
 }

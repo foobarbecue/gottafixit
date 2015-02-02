@@ -11,6 +11,9 @@ Meteor.methods({
             data['author'] = Meteor.users.findOne(this.userId);
             data['diffedHTML'] = htmldiff(data.oldHTML, data.newHTML);
             Fixes.insert(data);
+        },
+        vote: function(vote, data){
+            // TODO
         }
     }
 )
