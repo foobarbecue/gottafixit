@@ -80,7 +80,7 @@ function onFix(that) {
 
 	// if the user actually changed something
 	if (that.originalHTML !== that.innerHTML) {
-		ddpConnection.call('submit_fix',{
+		ddpConnection.call('submitFix',{
 			timestamp: new Date(),
 			oldHTML: that.originalHTML,
 			newHTML: that.innerHTML,

@@ -1,13 +1,3 @@
-Meteor.methods({
-    toggleVote: function (Fix, voteValue) {
-        if (getPreviousVote(Fix, voteValue)){
-            removeVote(Fix, voteValue);
-        } else {
-            addVote(Fix, voteValue);
-        }
-    }
-});
-
 function addVote(Fix, voteValue) {
     var voteSetter = {};
     voteSetter['votes.' + Meteor.userId()] = {
@@ -35,7 +25,7 @@ function ayeCount(Fix){
     }).count()
 }
 
-function nayCount(){
+function nayCount(Fix){
     Fixes.find({
         _id: Fix._id,
         "votes.$.value": -1
@@ -47,27 +37,3 @@ function getPreviousVote(Fix){
     voteFinder["votes." + Meteor.userId()] = {$exists:true};
     return Fixes.findOne( voteFinder );
 }
-
-
-//var addVote(item, voteValue){
-//};
-//
-//var removeVote{
-//
-//};
-//
-//var hasUpvotedItem = function (item, user) {
-//    return item.upvoters && item.upvoters.indexOf(user._id) != -1;
-//};
-//
-//var hasDownvotedItem = function (item, user) {
-//    return item.downvoters && item.downvoters.indexOf(user._id) != -1;
-//};
-//
-//function downvoters(value){
-//
-//}
-//
-//function upvoters(value){
-//
-//}

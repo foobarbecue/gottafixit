@@ -2,15 +2,22 @@
 //    return Fixes.find({url : url});
 //    });
 
-Meteor.publish('fixesForCurrentPage', function(){
+Meteor.publish('fixesForCurrentPage', function () {
     return Fixes.find();
 });
 
 Meteor.methods({
-        submit_fix: function(data){
+        submitFix: function (data) {
             data['author'] = Meteor.users.findOne(this.userId);
             data['diffedHTML'] = htmldiff(data.oldHTML, data.newHTML);
             Fixes.insert(data);
+        },
+        toggleVote: function (Fix, voteValue) {
+            if (getPreviousVote(Fix, voteValue)) {
+                removeVote(Fix, voteValue);
+            } else {
+                addVote(Fix, voteValue);
+            }
         }
     }
 )
