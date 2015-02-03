@@ -1,39 +1,36 @@
-function addVote(Fix, voteValue) {
+addVote = function(fix, voteVal) {
     var voteSetter = {};
     voteSetter['votes.' + Meteor.userId()] = {
         timestamp: new Date(),
-        value: voteValue
+        voteVal: voteVal
     }
-    Fixes.update(Fix._id,
+    Fixes.update(fix._id,
         {
             $set : voteSetter
         })
 };
 
-function removeVote(Fix, voteValue){
+removeVote = function(fix, voteVal){
+    //Server side
     var voteFinder = {};
     voteFinder['votes.' + Meteor.userId()] = "";
-    Fixes.update(Fix._id,{
+    Fixes.update(fix._id,{
         $unset: voteFinder
     })
 }
 
-function ayeCount(Fix){
-    Fixes.find({
-        _id: Fix._id,
-        "votes.$.value": 1
-    }).count()
+countVotesByVal = function(fix, voteVal){
+    // Lame. Should be using $sum but there isn't a way with my current schema.
+    var sum = 0;
+    for (var vote in fix.votes){
+        var thisVoteVal = fix.votes[vote].voteVal;
+        if (thisVoteVal == voteVal){
+            sum+=thisVoteVal;
+        }
+    }
+    return Math.abs(sum);
 }
 
-function nayCount(Fix){
-    Fixes.find({
-        _id: Fix._id,
-        "votes.$.value": -1
-    }).count()
-}
-
-function getPreviousVote(Fix){
-    var voteFinder = {}
-    voteFinder["votes." + Meteor.userId()] = {$exists:true};
-    return Fixes.findOne( voteFinder );
+getPreviousVote = function (fix){
+    return fix.votes[Meteor.userId()];
 }
