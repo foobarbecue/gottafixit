@@ -7,11 +7,11 @@ Template.list_of_fixes.helpers({
 });
 
 Template.list_of_fixes.events({
-    'click #voteAye' : function(){
-        Meteor.call('vote', 'aye', this)
+    'click #voteAye' : function(evt){
+        Meteor.call('toggleVote', this, 1)
     },
-    'click #voteNay' : function(){
-        Meteor.call('vote', 'nay', this)
+    'click #voteNay' : function(evt){
+        Meteor.call('toggleVote', this, -1)
     }
 })
 
