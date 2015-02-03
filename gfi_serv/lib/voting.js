@@ -1,6 +1,6 @@
 Meteor.methods({
     toggleVote: function (Fix, voteValue) {
-        if (alreadyVoted(Fix, voteValue)){
+        if (getPreviousVote(Fix, voteValue)){
             removeVote(Fix, voteValue);
         } else {
             addVote(Fix, voteValue);
@@ -9,40 +9,43 @@ Meteor.methods({
 });
 
 function addVote(Fix, voteValue) {
-    Fixes.update(Fix,
+    var voteSetter = {};
+    voteSetter['votes.' + Meteor.userId()] = {
+        timestamp: new Date(),
+        value: voteValue
+    }
+    Fixes.update(Fix._id,
         {
-            $addToSet: {
-                'votes': {
-                    timestamp: new Date(),
-                    voter: Meteor.userId(),
-                    value: voteValue
-                }
-            }
-        }
-    )
-}
+            $set : voteSetter
+        })
+};
 
 function removeVote(Fix, voteValue){
-    Fixes.update(Fix,{
-        $pull:{
-            'votes': {voter: Meteor.userId()}
-        }
+    var voteFinder = {};
+    voteFinder['votes.' + Meteor.userId()] = "";
+    Fixes.update(Fix._id,{
+        $unset: voteFinder
     })
 }
 
-function ayeCount(){
-
+function ayeCount(Fix){
+    Fixes.find({
+        _id: Fix._id,
+        "votes.$.value": 1
+    }).count()
 }
 
 function nayCount(){
-
+    Fixes.find({
+        _id: Fix._id,
+        "votes.$.value": -1
+    }).count()
 }
 
-function alreadyVoted(Fix, voteValue){
-    var votedFixFinder = Fix;
-    votedFixFinder['votes']=[];
-    votedFixFinder['votes'].push({voter: Meteor.userId()});
-    return Fixes.find(votedFixFinder).count() > 0
+function getPreviousVote(Fix){
+    var voteFinder = {}
+    voteFinder["votes." + Meteor.userId()] = {$exists:true};
+    return Fixes.findOne( voteFinder );
 }
 
 
