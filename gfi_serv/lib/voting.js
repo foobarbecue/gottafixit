@@ -31,9 +31,8 @@ countVotesByVal = function(fix, voteVal){
     return Math.abs(sum);
 }
 
-getPreviousVote = function (fix){
-    if (Meteor.userId() && fix.votes){
+getPreviousVote = function (fix) {
+    if (Meteor.userId() && fix.votes) {
         return fix.votes[Meteor.userId()];
-        }
     }
 }

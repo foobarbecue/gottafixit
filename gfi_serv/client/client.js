@@ -18,7 +18,7 @@ Template.list_of_fixes.events({
             if (Meteor.user()) {
                 Meteor.call('toggleVote', this, 1)
             } else {
-                alert('Sign up or log in.')
+                alert('Please sign up or log in.')
             }
 
         },
@@ -27,7 +27,7 @@ Template.list_of_fixes.events({
             if (Meteor.user()) {
                 Meteor.call('toggleVote', this, -1)
             } else {
-                alert('Sign up or log in.')
+                alert('Please sign up or log in.')
             }
         }}
 );
