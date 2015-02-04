@@ -32,10 +32,8 @@ countVotesByVal = function(fix, voteVal){
 }
 
 getPreviousVote = function (fix){
-    try{
+    if (Meteor.userId() && fix.votes){
         return fix.votes[Meteor.userId()];
-    }
-    catch (TypeError){
-        return null
+        }
     }
 }

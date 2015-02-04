@@ -15,7 +15,7 @@ Template.list_of_fixes.helpers({
 
 Template.list_of_fixes.events({
         'click #voteAye': function (evt) {
-            if (Meteor.user) {
+            if (Meteor.user()) {
                 Meteor.call('toggleVote', this, 1)
             } else {
                 alert('Sign up or log in.')
@@ -24,7 +24,7 @@ Template.list_of_fixes.events({
         },
 
         'click #voteNay': function (evt) {
-            if (Meteor.user) {
+            if (Meteor.user()) {
                 Meteor.call('toggleVote', this, -1)
             } else {
                 alert('Sign up or log in.')
