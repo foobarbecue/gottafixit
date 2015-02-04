@@ -29,12 +29,24 @@ Template.list_of_fixes.events({
             } else {
                 alert('Please sign up or log in.')
             }
-        },
-        'click #extension_install': function (evt){
-            chrome.webstore.install("https://chrome.google.com/webstore/detail/apmhajgnggibnojcfieokijpnhflifnd");
         }
     }
 );
+
+Template.extension_install.events({
+    'click #extension_install': function (evt){
+        console.log('Attempting inline extension install.');
+        chrome.webstore.install(
+            "https://chrome.google.com/webstore/detail/apmhajgnggibnojcfieokijpnhflifnd",
+            function(){
+                alert('Extension successfully installed.');
+            },
+            function(){
+                alert('Extension did not install. Please go to the Google Chrome App Store and manually install gottafixit.');
+            }
+        );
+    }
+})
 
 Accounts.ui.config({
     passwordSignupFields: 'USERNAME_AND_OPTIONAL_EMAIL'
