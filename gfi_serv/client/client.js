@@ -29,7 +29,11 @@ Template.list_of_fixes.events({
             } else {
                 alert('Please sign up or log in.')
             }
-        }}
+        },
+        'click #extension_install': function (evt){
+            chrome.webstore.install("https://chrome.google.com/webstore/detail/apmhajgnggibnojcfieokijpnhflifnd");
+        }
+    }
 );
 
 Accounts.ui.config({
