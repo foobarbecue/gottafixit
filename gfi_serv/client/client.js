@@ -14,13 +14,23 @@ Template.list_of_fixes.helpers({
 });
 
 Template.list_of_fixes.events({
-    'click #voteAye' : function(evt){
-        Meteor.call('toggleVote', this, 1)
-    },
-    'click #voteNay' : function(evt){
-        Meteor.call('toggleVote', this, -1)
-    }
-})
+        'click #voteAye': function (evt) {
+            if (Meteor.user) {
+                Meteor.call('toggleVote', this, 1)
+            } else {
+                alert('Sign up or log in.')
+            }
+
+        },
+
+        'click #voteNay': function (evt) {
+            if (Meteor.user) {
+                Meteor.call('toggleVote', this, -1)
+            } else {
+                alert('Sign up or log in.')
+            }
+        }}
+);
 
 Accounts.ui.config({
     passwordSignupFields: 'USERNAME_AND_OPTIONAL_EMAIL'
