@@ -58,6 +58,12 @@
     top: 1em;
 }
 
+#credits{
+    position: fixed;
+    bottom: 0;
+    right: 20px;
+}
+
 ins{
     color: red;
 }

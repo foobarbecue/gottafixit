@@ -8,7 +8,7 @@
   {{> loginButtons align="right"}}
   <h1>The internet, corrected.</h1>
   {{> list_of_fixes}}
-
+  {{> credits}}
 </body>
 
 <template name="extension_install">
@@ -55,5 +55,11 @@
 
         </div>
       {{/each}}
+    </div>
+</template>
+
+<template name="credits">
+    <div id="credits">
+        An <a href="http://github.com/foobarbecue/todone">open source</a> project by <a href="http://github.com/foobarbecue">foobarbecue</a>.
     </div>
 </template>
