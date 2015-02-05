@@ -39,7 +39,8 @@ Template.extension_install.events({
         chrome.webstore.install(
             "https://chrome.google.com/webstore/detail/apmhajgnggibnojcfieokijpnhflifnd",
             function(){
-                alert('Extension successfully installed.');
+                alert('Extension successfully installed. Click its icon to enable features, ' +
+                'and try it out on any website. Your fixes will appear at http://gottafix.it.');
             },
             function(){
                 alert('Extension did not install. Please go to the Google Chrome App Store and manually install gottafixit.');
