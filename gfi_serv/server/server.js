@@ -1,9 +1,9 @@
-//Meteor.publish('fixesForCurrentPage', function(url){
-//    return Fixes.find({url : url});
-//    });
-
-Meteor.publish('fixesForCurrentPage', function () {
+Meteor.publish('fixes', function () {
     return Fixes.find();
+});
+
+Meteor.publish('fixesForCurrentPage', function(url){
+    return Fixes.find({url : url});
 });
 
 Meteor.methods({
@@ -20,4 +20,16 @@ Meteor.methods({
             }
         }
     }
-)
+);
+
+Fixes.allow({
+    insert: function(userId){
+        return userId != null
+    },
+    remove: function (userId, fix) {
+        return fix.author._id === userId
+    },
+    update: function (userId, fix) {
+        return fix.author._id === userId
+    }
+});

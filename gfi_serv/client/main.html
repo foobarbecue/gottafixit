@@ -12,7 +12,7 @@
 </body>
 
 <template name="extension_install">
-    <div id="extDwnld" >
+    <div id="ext_dwnld" >
         Proofread the net for fun and glory.
         {{#unless extension_installed}}
         <button id="extension_install">Install</button>
@@ -45,12 +45,15 @@
             <div class="fix_body">
 
                 <div class="voting">
-                    <div id="voteAye" class={{voted 1}}>✔: {{voteCount 1}}</div>
-                    <div id="voteNay" class={{voted -1}}>X: {{voteCount -1}}</div>
+                    <div id="vote_aye" class={{voted 1}}>✔: {{voteCount 1}}</div>
+                    <div id="vote_nay" class={{voted -1}}>X: {{voteCount -1}}</div>
                 </div>
 
                 <div class="contents">
                     {{{diffedHTML}}}
+                </div>
+                <div id="delete_fix">
+                    [ <span> delete</span> ]
                 </div>
 
             </div>

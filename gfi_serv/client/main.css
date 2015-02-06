@@ -52,7 +52,7 @@
     color: red;
 }
 
-#extDwnld{
+#ext_dwnld {
     position: absolute;
     right: 1em;
     top: 1em;
@@ -62,6 +62,14 @@
     position: fixed;
     bottom: 0;
     right: 20px;
+}
+
+#delete_fix{
+    color: grey;
+}
+
+#delete_fix > span:hover{
+    color: red;
 }
 
 ins{

@@ -14,7 +14,7 @@ Template.list_of_fixes.helpers({
 });
 
 Template.list_of_fixes.events({
-        'click #voteAye': function (evt) {
+        'click #vote_aye': function (evt) {
             if (Meteor.user()) {
                 Meteor.call('toggleVote', this, 1)
             } else {
@@ -22,13 +22,15 @@ Template.list_of_fixes.events({
             }
 
         },
-
-        'click #voteNay': function (evt) {
+        'click #vote_nay': function (evt) {
             if (Meteor.user()) {
                 Meteor.call('toggleVote', this, -1)
             } else {
                 alert('Please sign up or log in.')
             }
+        },
+        'click #delete_fix': function(){
+            Fixes.remove(this._id);
         }
     }
 );
@@ -51,7 +53,7 @@ Template.extension_install.events({
 
 Template.extension_install.helpers({
     extension_installed: function () {
-        return chrome.app.isInstalled();
+        return chrome.app.isInstalled;
     }
 });
 
