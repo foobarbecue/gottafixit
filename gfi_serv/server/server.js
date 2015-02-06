@@ -1,9 +1,9 @@
-Meteor.publish('fixes', function () {
-    return Fixes.find();
-});
-
-Meteor.publish('fixesForCurrentPage', function(url){
-    return Fixes.find({url : url});
+Meteor.publish('fixes', function(url){
+    if (url){
+        return Fixes.find({url : url});
+    } else {
+        return Fixes.find();
+    }
 });
 
 Meteor.methods({

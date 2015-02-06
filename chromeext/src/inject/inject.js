@@ -5,7 +5,7 @@ var fixesForPageQuery;
 function init() {
 	// Connect to the server using Use the Asteroid library ( https://github.com/mondora/asteroid )
 	ddpConnection = new Asteroid("gottafix.it");
-	ddpConnection.subscribe("fixesForCurrentPage", window.location.href);
+	ddpConnection.subscribe("fixes", window.location.href);
 	fixesCollection = ddpConnection.getCollection("fixes");
 	fixesForPageQuery = fixesCollection.reactiveQuery({url:window.location.href});
 	// We need this because chrome.storage.onChanged doesn't emit on first load.
