@@ -47,7 +47,13 @@ Template.extension_install.events({
             }
         );
     }
-})
+});
+
+Template.extension_install.helpers({
+    extension_installed: function () {
+        return chrome.app.isInstalled();
+    }
+});
 
 Accounts.ui.config({
     passwordSignupFields: 'USERNAME_AND_OPTIONAL_EMAIL'

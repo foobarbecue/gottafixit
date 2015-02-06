@@ -14,8 +14,10 @@
 <template name="extension_install">
     <div id="extDwnld" >
         Proofread the net for fun and glory.
+        {{#unless extension_installed}}
         <button id="extension_install">Install</button>
         the <a href="https://chrome.google.com/webstore/detail/gottafixit/apmhajgnggibnojcfieokijpnhflifnd">Google Chrome extension</a> to get started.
+        {{/unless}}
     </div>
 </template>
 
