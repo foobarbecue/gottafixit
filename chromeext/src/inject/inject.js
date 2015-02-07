@@ -44,11 +44,6 @@ function setup(chromeStorageData){
 			.toggleClass('gfi_modified');
 	}
 
-	//if (chromeStorageData['show_current_user_fixes_active']) {
-	//	var fixesForPageQuery = fixesCollection.reactiveQuery({url:window.location.href, user: currentUser});
-	//	showFixes(fixesForPageQuery);
-	//}
-
 	// Set up display of fixes from database
 	if (chromeStorageData['show_all_fixes_active'] == true) {
 		showFixes(fixesForPageQuery.result);
@@ -90,10 +85,30 @@ function onFix(that) {
 	}
 }
 
-function showFixes(fixesForPageResult){
-	$.each(fixesForPageResult, function(index, fix){
-		$(fix.nodeSelector).html(fix.diffedHTML);
+function showFixes(fixesForPageResult) {
+	$.each(fixesForPageResult, function (index, fix) {
+		$(fix.nodeSelector)
+			.html(fix.diffedHTML)
+			.append("<div class='fixed_icon'><img src=' " +
+			chrome.extension.getURL('/icons/icon19.png') +
+			" '><span class='author'>fixed by " + fix.author.profile.name +
+			"</span></div>");
 	});
+	$('.fixed_icon').css(
+		{
+			position: 'absolute',
+			top: 0,
+			right: 0,
+			'background-color' : 'white',
+			size : 'small'
+		})
+		.hover(function () {
+			$(this).children('span').slideToggle();
+		})
+	// Setting parent element to position: relative is a little risky... will break page layout in some edge cases
+	// TODO find a better way to position the fixed_icon
+	$('.fixed_icon').parent().css({position: 'relative'});
+	$('.fixed_icon span').hide();
 }
 
 function hideFixes(fixesForPageResult){
