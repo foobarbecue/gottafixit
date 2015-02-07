@@ -1,4 +1,4 @@
-Meteor.subscribe('fixesForCurrentPage');
+Meteor.subscribe('fixes');
 
 Template.list_of_fixes.helpers({
    fixes:  function(){
