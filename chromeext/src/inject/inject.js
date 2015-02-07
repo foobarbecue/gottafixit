@@ -1,10 +1,11 @@
 var fixesCollection;
 var fixesForPageQuery;
+var gfi_server = "gottafix.it";
 //var ddpConnection;
 // initial application of gfi settings
 function init() {
 	// Connect to the server using Use the Asteroid library ( https://github.com/mondora/asteroid )
-	ddpConnection = new Asteroid("gottafix.it");
+	ddpConnection = new Asteroid(gfi_server);
 	ddpConnection.subscribe("fixes", window.location.href);
 	fixesCollection = ddpConnection.getCollection("fixes");
 	fixesForPageQuery = fixesCollection.reactiveQuery({url:window.location.href});
@@ -89,22 +90,20 @@ function showFixes(fixesForPageResult) {
 	$.each(fixesForPageResult, function (index, fix) {
 		$(fix.nodeSelector)
 			.html(fix.diffedHTML)
-			.append("<div class='fixed_icon'><img src=' " +
+			.append(
+			"<div class='fixed_icon'>" +
+			"<a href='http://" +
+			gfi_server + "#" + fix._id + "'>" +
+			"<img src='"+
 			chrome.extension.getURL('/icons/icon19.png') +
-			" '><span class='author'>fixed by " + fix.author.profile.name +
-			"</span></div>");
+			"'><span class='author'>paragrah fixed by " + fix.author.profile.name +
+			"</span></a></div>");
 	});
-	$('.fixed_icon').css(
-		{
-			position: 'absolute',
-			top: 0,
-			right: 0,
-			'background-color' : 'white',
-			size : 'small'
-		})
-		.hover(function () {
-			$(this).children('span').slideToggle();
-		})
+	$('.fixed_icon').hover(function () {
+		$(this).find('span')
+			.toggle()
+			.parent('p').toggleClass('highlight_fixes')
+	});
 	// Setting parent element to position: relative is a little risky... will break page layout in some edge cases
 	// TODO find a better way to position the fixed_icon
 	$('.fixed_icon').parent().css({position: 'relative'});

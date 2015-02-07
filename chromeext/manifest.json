@@ -32,6 +32,7 @@
       "matches": [
         "http://*/*"
       ],
+      "css":["src/inject/gfi_extension.css"],
       "js": [
         "js/jsdiff.js",
         "js/jquery.min.js",
