@@ -22,10 +22,9 @@ $(function () {
     );
 
 
-    $('#login').click(
+    $('.login_link').click(
         function(){
-            console.log('browser action script sent message');
-            chrome.runtime.sendMessage('login');
+            chrome.runtime.sendMessage(this.id);
         }
     );
 

@@ -5,8 +5,7 @@ window.ddpConnection = ddpConnection;
 console.log('bg script starting')
 
 chrome.runtime.onMessage.addListener(function (request, sender, response) {
-    if (request === 'login') {
-        console.log('trying to login')
+    if (request.startsWith('login')) {
         ddpConnection.on("login", function loginWorked(loggedInUserId) {
             console.log('logged in as:' + loggedInUserId)
             ddpConnection.userId = loggedInUserId
@@ -17,8 +16,19 @@ chrome.runtime.onMessage.addListener(function (request, sender, response) {
             }
         ).fail(function notAlreadyLoggedIn() {
                 ddpConnection.subscribe("meteor.loginServiceConfiguration").ready.then(function tryToLogin() {
-                    console.log('trying fb login');
-                    window.fbLoginPromise = ddpConnection.loginWithFacebook();
+                    console.log('trying login');
+                    switch (request){
+                        case 'login_facebook':
+                            ddpConnection.loginWithFacebook();
+                            break;
+                        case 'login_github':
+                            ddpConnection.loginWithGithub();
+                            break;
+                        case 'login_google':
+                            ddpConnection.loginWithGoogle();
+                            break;
+                    }
+
                 });
             })
     } else if (request === 'logout') {

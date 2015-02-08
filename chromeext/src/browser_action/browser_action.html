@@ -28,15 +28,18 @@
         <input name="show_current_user_fixes" id="show_user_fixes_active" type="checkbox">Display fixes you made made to this page.
     </p>
     -->
-    <p>
+    <div>
         <input value="show_all_fixes" id="show_all_fixes_active" type="checkbox">
 		<label for="show_all_fixes_active">Display fixes that GFI users have made to this page.</label>
-    </p>
-	<p>
-		<button id="login">login with Facebook</button>
-	</p>
-    <p>
+    </div>
+	<div id="login">
+		login using:
+		<input type="image" id="login_facebook" class="login_link" src="/icons/facebook-24.png">
+        <input type="image" id="login_google" class="login_link" src="/icons/google-24.png">
+        <input type="image" id="login_github" class="login_link" src="/icons/github-24.png">
+	</div>
+    <div>
         <button id="logout">logout</button>
-    </p>
+    </div>
 </div>
 </body>
