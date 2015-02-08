@@ -73,16 +73,20 @@ function saveOriginal() {
 }
 
 function onFix(that) {
-
 	// if the user actually changed something
 	if (that.originalHTML !== that.innerHTML) {
-		ddpConnection.call('submitFix',{
+		if (ddpConnection.userId){
+		ddpConnection.call('submitFix', {
 			timestamp: new Date(),
 			oldHTML: that.originalHTML,
 			newHTML: that.innerHTML,
 			url: window.location.href,
 			nodeSelector: $(that).getSelector()
 		});
+		} else {
+			$(that).html(that.originalHTML);
+			alert('You must log in to submit fixes to gottafixit. Click the gottafixit icon in your browser bar.');
+		}
 	}
 }
 

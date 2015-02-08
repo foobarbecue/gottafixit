@@ -9,8 +9,10 @@ Meteor.publish('fixes', function(url){
 Meteor.methods({
         submitFix: function (data) {
             data['author'] = Meteor.users.findOne(this.userId);
-            data['diffedHTML'] = htmldiff(data.oldHTML, data.newHTML);
-            Fixes.insert(data);
+            if (data['author']) {
+                data['diffedHTML'] = htmldiff(data.oldHTML, data.newHTML);
+                Fixes.insert(data);
+            } else throw new Meteor.Error("not-authorized");
         },
         toggleVote: function (Fix, voteValue) {
             if (getPreviousVote(Fix, voteValue)) {
