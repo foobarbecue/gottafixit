@@ -11,25 +11,22 @@ body{
 }
 
 a {
-    color: inherit;
+    color: #cf7c34;
     text-decoration: inherit !important;
 }
 
 #header{
     position: fixed;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
     background-color: bisque;
     width: 100%;
     height: 50px;
     top: 0;
     /*#d1b69c*/
-    border-bottom: thick #fddab9 solid;
-    z-index: 100;
+    border-bottom: thick rgba(207, 124, 52, 0.5) solid;
+    z-index: 1;
 }
 
-#header div, #header h1{
+#header div, #header h1, #header span{
     line-height: 0.67;
     position: absolute;
     bottom: 0;
@@ -42,16 +39,17 @@ a {
 }
 
 #login-buttons{
-    position: absolute;
+    position: fixed;
+    top: 37px; /* naughty */
     right: 5%;
+    z-index: 2;
 }
 
-#ext_dwnld {
+#ext_dwnld{
     position: absolute;
     text-align: center;
     width: 100%;
 }
-
 /* "fix" here is this app's term for an edit made on some other page, displayed here. */
 
 .fixes{
@@ -119,6 +117,12 @@ a {
     position: fixed;
     bottom: 0;
     right: 5%;
+    background-color: bisque;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    border-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
 
 #delete_fix{

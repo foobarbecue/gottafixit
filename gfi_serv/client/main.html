@@ -5,10 +5,10 @@
 </head>
 
 <body>
+{{> loginButtons align="right"}}
 <div id="header">
   {{> extension_install}}
   <h1>The internet, corrected.</h1>
-  {{> loginButtons align="right"}}
 
 </div>
   {{> list_of_fixes}}
@@ -17,7 +17,7 @@
 
 <template name="extension_install">
     <div id="ext_dwnld" >
-        Proofread the net for fun and glory.
+        Proofread the net for fun and glory with gottafix.it.
         {{#unless extension_installed}}
         <a href="javascript:;" id="extension_install">Install</a>
         the <a href="https://chrome.google.com/webstore/detail/gottafixit/apmhajgnggibnojcfieokijpnhflifnd">Google Chrome extension</a> to get started.
