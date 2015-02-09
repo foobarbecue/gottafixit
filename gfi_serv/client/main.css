@@ -1,8 +1,23 @@
-/* CSS declarations go here */
-#login-buttons{
-    position: fixed;
-    right: 0;
-    margin: 20px;
+body{
+    margin: 0;
+    background-color: bisque;
+    flex-direction: column;
+}
+
+h1{
+    margin-bottom: 0;
+    vertical-align: baseline;
+    line-height: 0.69;
+}
+
+#header{
+    flex: 0 1 10%;
+    display: flex;
+    align-items: flex-end;
+    background-color: #d1b69c;
+    width: 100%;
+    height: 80px;
+    top: 0;
 }
 
 /* "fix" here is this app's term for an edit made on some other page, displayed here. */
@@ -10,6 +25,9 @@
 .fix{
     flex-direction: column;
     display: flex;
+    margin-top: 1em;
+    background-color: #d1b69c;
+    border-radius: 5px;
 }
 
 /* Add a margin if our window is wide */
@@ -28,6 +46,13 @@
 
 .fix_header{
     border-bottom: double black;
+    padding-right: 1em;
+    padding-left: 1em;
+    padding-top: 0.5em;
+}
+
+.fix_body{
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
 .contents{
@@ -44,16 +69,23 @@
     padding-left: 1em;
 }
 
-#voteAye:hover, #voteAye.voted{
+#vote_aye:hover, #voteAye.voted{
     color: green;
 }
 
-#voteNay:hover, #voteNay.voted{
+#vote_nay:hover, #voteNay.voted{
     color: red;
 }
 
+#login-buttons{
+    position: fixed;
+    top: 2em;
+    right: 0;
+    margin: 20px;
+}
+
 #ext_dwnld {
-    position: absolute;
+    position: fixed;
     right: 1em;
     top: 1em;
 }
@@ -66,16 +98,17 @@
 
 #delete_fix{
     color: grey;
+    margin-right: 1em;
 }
 
 #delete_fix > span:hover{
-    color: red;
+    color: #ff4d4d;
 }
 
 ins{
-    color: red;
+    color: #ff4d4d;
 }
 
 del{
-    color: blue;
+    color: #8080ff;
 }
