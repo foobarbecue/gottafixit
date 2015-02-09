@@ -24,6 +24,8 @@
       "js/bower_components/q/q.js",
       "js/bower_components/asteroid/dist/asteroid.chrome.js",
       "js/bower_components/asteroid/dist/plugins/facebook-login.js",
+      "js/bower_components/asteroid/dist/plugins/google-login.js",
+      "js/bower_components/asteroid/dist/plugins/github-login.js",
       "src/background.js"
     ]
   },
