@@ -1,13 +1,15 @@
 <head>
   <title>Gotta Fix It: proofread the net</title>
   <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/apmhajgnggibnojcfieokijpnhflifnd">
+    <link href='https://fonts.googleapis.com/css?family=Dawning+of+a+New+Day' rel='stylesheet' type='text/css' />
 </head>
 
 <body>
 <div id="header">
   {{> extension_install}}
-  {{> loginButtons align="right"}}
   <h1>The internet, corrected.</h1>
+  {{> loginButtons align="right"}}
+
 </div>
   {{> list_of_fixes}}
   {{> credits}}
@@ -17,7 +19,7 @@
     <div id="ext_dwnld" >
         Proofread the net for fun and glory.
         {{#unless extension_installed}}
-        <button id="extension_install">Install</button>
+        <a href="javascript:;" id="extension_install">Install</a>
         the <a href="https://chrome.google.com/webstore/detail/gottafixit/apmhajgnggibnojcfieokijpnhflifnd">Google Chrome extension</a> to get started.
         {{/unless}}
     </div>
@@ -67,6 +69,6 @@
 
 <template name="credits">
     <div id="credits">
-        An <a href="http://github.com/foobarbecue/gottafixit">open source</a> project by <a href="http://github.com/foobarbecue">foobarbecue</a>.
+        gottafix.it is an <a href="http://github.com/foobarbecue/gottafixit">open source</a> project by <a href="http://github.com/foobarbecue">foobarbecue</a>.
     </div>
 </template>
