@@ -1,5 +1,10 @@
 Meteor.subscribe('fixes');
 
+Template.registerHelper(
+    'humanizeDatetime', function(datetime){
+        return datetime.replace('T',' ').replace('Z',' ');
+    });
+
 Template.list_of_fixes.helpers({
    fixes:  function(){
        return Fixes.find();
