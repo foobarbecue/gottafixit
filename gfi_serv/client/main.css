@@ -57,7 +57,7 @@ a:hover{
     z-index: 2;
 }
 
-#ext_dwnld{
+#ext_dwnld, #site_title{
     position: absolute;
     text-align: center;
     width: 100%;
