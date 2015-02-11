@@ -1,22 +1,22 @@
 <head>
-  <title>Gotta Fix It: proofread the net</title>
-  <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/apmhajgnggibnojcfieokijpnhflifnd">
-    <link href='https://fonts.googleapis.com/css?family=Dawning+of+a+New+Day' rel='stylesheet' type='text/css' />
+    <title>Gotta Fix It: proofread the net</title>
+    <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/apmhajgnggibnojcfieokijpnhflifnd">
+    <link href='https://fonts.googleapis.com/css?family=Dawning+of+a+New+Day' rel='stylesheet' type='text/css'/>
 </head>
 
 <body>
-{{> loginButtons align="right"}}
-<div id="header">
-  {{> extension_install}}
-  <h1>The internet, corrected.</h1>
 
+<div id="header">
+    <h1>The internet, corrected.</h1>
+    {{> extension_install}}
+    {{> loginButtons align="right"}}
 </div>
-  {{> list_of_fixes}}
-  {{> credits}}
+{{> list_of_fixes}}
+{{> credits}}
 </body>
 
 <template name="extension_install">
-    <div id="ext_dwnld" >
+    <div id="ext_dwnld">
         {{#unless extension_installed}}
             <a href="javascript:" id="extension_install">Extend</a>
             your browser. Defend your language. <a href="http://gottafix.it">gottafix.it</a>
@@ -26,48 +26,49 @@
 
 <template name="list_of_fixes">
     <div class="fixes">
-      {{#each fixes}}
-        <div class="fix">
-            <div class="fix_header" id="{{_id}}">
-                <div class="author">
-                    {{#if author}}
-                        {{author.profile.name}}{{author.username}}
-                    {{else}}
-                        Anonymous user
-                    {{/if}}
+        {{#each fixes}}
+            <div class="fix">
+                <div class="fix_header" id="{{_id}}">
+                    <div class="author">
+                        {{#if author}}
+                            {{author.profile.name}}{{author.username}}
+                        {{else}}
+                            Anonymous user
+                        {{/if}}
+                    </div>
+                    <div class="url">
+                        <a href='{{url}}'>{{url}}</a>
+                    </div>
+                    <div class="timestamp">
+                        {{humanizeDatetime timestamp}}
+                    </div>
                 </div>
-                <div class="url">
-                    <a href='{{url}}'>{{url}}</a>
+
+                <!-- Wish we didn't have to have this purely style element-->
+                <div class="fix_body">
+
+                    <div class="voting">
+                        <div id="vote_aye" class={{voted 1}}>✔: {{voteCount 1}}</div>
+                        <div id="vote_nay" class={{voted -1}}>X: {{voteCount -1}}</div>
+                    </div>
+
+                    <div class="contents">
+                        {{{diffedHTML}}}
+                    </div>
+                    <div id="delete_fix">
+                        [ <span> delete</span> ]
+                    </div>
+
                 </div>
-                <div class="timestamp">
-                    {{humanizeDatetime timestamp}}
-                </div>
+
             </div>
-
-            <!-- Wish we didn't have to have this purely style element-->
-            <div class="fix_body">
-
-                <div class="voting">
-                    <div id="vote_aye" class={{voted 1}}>✔: {{voteCount 1}}</div>
-                    <div id="vote_nay" class={{voted -1}}>X: {{voteCount -1}}</div>
-                </div>
-
-                <div class="contents">
-                    {{{diffedHTML}}}
-                </div>
-                <div id="delete_fix">
-                    [ <span> delete</span> ]
-                </div>
-
-            </div>
-
-        </div>
-      {{/each}}
+        {{/each}}
     </div>
 </template>
 
 <template name="credits">
     <div id="credits">
-        <a href="http://gottafix.it">gottafix.it</a> is an <a href="http://github.com/foobarbecue/gottafixit">open source</a> project by <a href="http://github.com/foobarbecue">foobarbecue</a>.
+        <a href="http://gottafix.it">gottafix.it</a> is an <a href="http://github.com/foobarbecue/gottafixit">open
+        source</a> project by <a href="http://github.com/foobarbecue">foobarbecue</a>.
     </div>
 </template>
