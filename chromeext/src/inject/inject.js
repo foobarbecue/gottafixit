@@ -100,7 +100,7 @@ function showFixes(fixesForPageResult) {
 			gfi_server + "#" + fix._id + "'>" +
 			"<img src='"+
 			chrome.extension.getURL('/icons/icon19.png') +
-			"'><span class='author'>paragrah fixed by " + fix.author.profile.name +
+			"'><span class='author'>paragraph fixed by " + fix.author.profile.name +
 			"</span></a></div>");
 	});
 	$('.fixed_icon').hover(function () {

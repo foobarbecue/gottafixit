@@ -95,7 +95,7 @@ a:hover{
 }
 
 /* Add a margin if our window is wide */
-@media (min-width: 1000px){
+@media (min-width: 700px){
     .fix {
         margin-left: 10%;
         margin-right: 10%;
