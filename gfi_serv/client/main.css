@@ -28,8 +28,8 @@ a {
     justify-content: space-between;
     left: 0;
     right: 0;
-    padding-left: 2em;
-    padding-right: 2em;
+    padding-left: 5%;
+    padding-right: 5%;
 
 }
 
@@ -45,12 +45,20 @@ a {
 
 #header h1{
     font-family: 'Dawning of a New Day';
-    font-size: 40px;
+    font-size: 80px;
     color: rgb(176, 66, 66);
 }
 
+#beta{
+    font-family: monospace;
+    font-size: initial;
+    color: black;
+    font-variant: small-caps;
+    vertical-align: super;
+}
+
 a {
-    text-shadow: 0px 0px 6px rgb(176, 66, 66);
+    text-shadow: 0px 0px 6px rgb(186, 66, 66);
     cursor: hand;
     cursor: pointer;
 }
@@ -109,15 +117,21 @@ a:hover{
 }
 
 .fix_header>div{
-    flex: 1 0 0;
+    flex: 1 1 auto;
 }
 
 .url{
     text-align: center;
+    flex-shrink: 1;
 }
 
 .timestamp{
     text-align: right;
+    flex-shrink: 3;
+}
+
+.author{
+    flex-shrink: 2;
 }
 
 .fix_body{
