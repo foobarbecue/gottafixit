@@ -39,14 +39,21 @@ a {
     flex-grow: 1;
 }
 
+#header>div {
+    text-align: center;
+    font-variant: small-caps;
+}
+
 #header>div, #header>h1, #login-buttons{
     flex-basis: 300px;
+    text-align: right;
 }
 
 #header h1{
     font-family: 'Dawning of a New Day';
     font-size: 80px;
     color: rgb(176, 66, 66);
+    text-align: left;
 }
 
 #beta{
