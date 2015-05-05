@@ -1,0 +1,20 @@
+{
+  "name": "gottafixit-chromeext",
+  "version": "0.0.1",
+  "homepage": "https://github.com/foobarbecue/gottafixit",
+  "authors": [
+    "Aaron Curtis <foobarbecue@gmail.com>"
+  ],
+  "license": "Apache 2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "asteroid": "~0.6.1",
+    "jquery": "~2.1.4"
+  }
+}
