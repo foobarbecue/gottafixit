@@ -1,3 +1,5 @@
+This repository is no longer maintained and has been archived. For a similar project, please check out https://hypothes.is .
+
 # gottafixit
 Proofread the web for fun and glory.
 
